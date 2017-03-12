@@ -4,20 +4,18 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
 import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class CacheWriter extends WriterToFileImpl {
     private int cacheSize;
-    private List<String> cache;
+    private Queue<String> cache;
 
 
     public CacheWriter(int cacheSize , Date date, DateFormat df, String fileName) {
         super(date, df, fileName);
         this.cacheSize = cacheSize;
-        this.cache = new ArrayList<>(cacheSize);
+        this.cache = new ArrayDeque<>(cacheSize);
     }
     @PreDestroy
     public void destroy() {
@@ -27,6 +25,7 @@ public class CacheWriter extends WriterToFileImpl {
         }
     }
 
+    @Override
     public void write(String str) {
         cache.add(str);
         if (cache.size() == cacheSize) {
@@ -36,9 +35,9 @@ public class CacheWriter extends WriterToFileImpl {
     }
 
     private void writeMsgCache() {
-        for (int i = 0; i < cache.size(); i++) {
-            super.write(cache.get(i));
-        }
+        while(!cache.isEmpty())
+            super.write(cache.poll());
+
     }
 
 }

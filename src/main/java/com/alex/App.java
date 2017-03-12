@@ -12,8 +12,8 @@ public class App {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(AppConfig.class);
 
-        Messenger messenger=context.getBean(Messenger.class);
-        WriteToFile writeToFile=context.getBean(WriteToFile.class);
+        Messenger messenger=context.getBean("messangerImpl",Messenger.class);
+        WriteToFile writeToFile=context.getBean("cacheWriter",WriteToFile.class);
 
         int i = 0;
         while (i < 5){

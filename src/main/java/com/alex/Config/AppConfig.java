@@ -1,13 +1,11 @@
 package com.alex.Config;
 
 import com.alex.impl.CacheWriter;
-import com.alex.impl.WriterToFileImpl;
-import com.alex.interfaces.Messenger;
 import com.alex.interfaces.WriteToFile;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -18,7 +16,7 @@ public class AppConfig {
 
     @Bean
     public DateFormat dateFormat() {
-        return DateFormat.getDateInstance();
+        return DateFormat.getDateTimeInstance();
     }
 
     @Bean

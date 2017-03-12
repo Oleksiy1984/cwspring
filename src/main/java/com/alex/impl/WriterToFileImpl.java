@@ -12,6 +12,14 @@ import java.util.Date;
 public class WriterToFileImpl implements WriteToFile {
     private File file;
     private String fileName = "file.txt";
+    private Date date;
+    private DateFormat df;
+
+    public WriterToFileImpl(Date date, DateFormat df, String fileName ) {
+        this.date = date;
+        this.df = df;
+        this.fileName = fileName;
+    }
 
     @PostConstruct
     public void init() throws IOException {
@@ -20,15 +28,6 @@ public class WriterToFileImpl implements WriteToFile {
         if(!file.canWrite()){
             System.err.println("Cannot write to file");
         }
-    }
-
-    private Date date;
-    private DateFormat df;
-
-    public WriterToFileImpl(Date date, DateFormat df, String fileName ) {
-        this.date = date;
-        this.df = df;
-        this.fileName = fileName;
     }
 
     public void write(String str) {
